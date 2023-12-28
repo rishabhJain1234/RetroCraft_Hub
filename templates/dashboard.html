@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>RetroCraft Hub</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/assets/img/favicon.png" rel="icon">
+  <link href="../static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <style>
+        .col-md-6 {
+            margin:5px;
+        }
+    </style>
+<section id="user_type" class="user_type">
+<!-- Add this code between the <body> tags -->
+<div class="container center thisdiv" data-aos="zoom-in" >
+    <h1 class="card-title text-center" style="color:white;position: relative;top: -40px ;">Join as a client or freelancer</h1>
+    <div class="row justify-content-center thisthis">
+        <div class="col-md-6 box1" onclick="next(1);">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">I am a producer</h5>
+                    <h6 class="card-title">Hiring for a project</h6>
+                    <!-- Add your producer content here -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 box2" onclick="next(0);">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">I am a professional</h5>
+                    <h6 class="card-title">Looking for work</h6>
+                    <!-- Add your professional content here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Producer-->
+<div class="container producer" >
+<!--Producer Login Form-->
+<div id="producer-login-form" class="container">
+<!-- Circular Avatar -->
+    <div class="avatar-edit">
+        <form id="avatar_form" enctype="multipart/form-data" >
+            <div id="avatarPreview" style="position:relative;margin: 0 auto;"></div>
+            <br>
+            <input type="file" name="image" id="imageUpload" accept=".png, .jpg ,.jpeg" style="width:60%;" />
+            <button type="submit" class="btn btn-primary" onclick="submitForm()">Save Image</button>
+        </form>
+    </div>
+</div>
+<br>
+<div class="container" id="details" style="margin:0 auto;">
+    <form id="details" style="margin:0 auto;">
+        <div class="mb-3 text-center" >
+            <label for="producer-username" class="form-label" style="color:white;">Username</label>
+            <input type="text" class="form-control" id="producer-username" placeholder="Enter your username">
+        </div>
+        <div class="mb-3 text-center">
+            <label for="producer-password" class="form-label" style="color:white;">Password</label>
+            <input type="password" class="form-control" id="producer-password" placeholder="Enter your password">
+        </div>
+        
+        
+        <!-- <div class="mb-3">
+            <label for="professional-type" class="form-label" style="color:white;">Professional Type</label>
+            <select class="form-select" id="professional-type">
+                <option value="">Select professional type</option>
+                <option value="designer">Designer</option>
+                <option value="developer">Developer</option>
+                <option value="writer">Writer</option>
+            </select>
+        </div> -->
+        <button type="submit" class="btn btn-primary d-flex justify-content-center" style="position: relative;left: 40%;">Login</button>
+    </form>
+</div>
+</div>
+</section>
+
+
+
+
+
+<script>
+    function next(v) {
+        document.querySelector(".thisdiv").style.left="-100%";
+        document.querySelector(".thisdiv").style.transition="0.5s";
+        setTimeout(function() {
+            document.querySelector(".thisdiv").style.display = "none";
+        }, 500);
+        if(v===1){
+            producer();
+        }
+        else{
+            professional();
+        }
+    }
+
+    function producer(){
+        document.querySelector(".producer").style.animation="fadeIn 0.4s ease-in-out";
+        document.querySelector(".producer").style.display="block";
+        
+
+    }
+
+
+      
+      function closeForm() {
+        document.getElementById("myForm").style.animation = "slideOut 0.3s ease-in-out";
+        setTimeout(function() {
+          document.getElementById("myForm").style.display = "none";
+        }, 200);
+      }
+    
+      function submitForm() {
+        const form = document.getElementById('avatar_form');
+        const formData = new FormData(form);
+    
+        // Use async/await to handle the asynchronous fetch call
+        (async () => {
+            try {
+                const response = await fetch('/save_image', {
+                    method: 'POST',
+                    body: formData,
+                });
+    
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+    
+                const data = await response.json();
+    
+                // Update the avatar div with the new image URL
+                const avatarPreview = document.getElementById('avatarPreview');
+                avatarPreview.style.backgroundImage = `url(${data.image_url})`;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        })();
+    
+        // Prevent the default form submission behavior
+        event.preventDefault();
+    }
+    
+    
+      
+</script>
+
+
+
+<!-- Vendor JS Files -->
+<script src="../static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="../static/assets/vendor/aos/aos.js"></script>
+<script src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="../static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="../static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="../static/assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="../static/assets/js/main.js"></script>
+
+</body>
+
+</html>

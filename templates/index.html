@@ -1,0 +1,467 @@
+ {% extends 'base.html' %}
+ {% block content %}
+ 
+ <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+        <div class="col-xl-6 col-lg-8">
+          <h1>RetroCraft Hub<span>.</span></h1>
+          <h2>Find the Right people for your project</h2>
+        </div>
+      </div>
+
+      <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+        <div class="col-xl-2 col-md-4 col-6 " onclick="openForm()">
+          <div class="icon-box">
+            <i class="ri-bar-chart-box-line"></i>
+            <h3><a>Find a Crew</a></h3>
+          </div>
+        </div>
+
+        <div class="col-xl-2 col-md-4 col-6"onclick="openForm()">
+          <div class="icon-box">
+            <i class="ri-calendar-todo-line"></i>
+            <h3><a>Find a Job</a></h3>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="text-center" style="display: flex; justify-content: center; align-items: center;border: 1px solid white; "></div>
+      <h2><a class="nav-link scrollto" href="#about">Want to know more?</a></h2>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+            <img src="../static/assets/7.jpeg" width="500px" class="img-fluid" alt="" style="margin-left: 90px;">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right" data-aos-delay="100">
+            <h3>About Us.</h3>
+            <p class="fst-italic">
+              Welcome to RetroCraft Hub, your gateway to the dynamic world of filmmaking collaboration. We empower producers to effortlessly discover and recruit their ideal crew members, while offering skilled professionals a streamlined experience to secure exciting job opportunities. Join us in crafting the future of storytelling!</p>
+              <p>🎬✨ #RetroCraftHub #Filmmaking #Collaboration</p>
+              <br>
+            <ul>
+              <li><i class="ri-check-double-line"></i>Skilled professionals, spanning roles from cinematographers to set designers, explore our platform to discover tailored opportunities that match their expertise.</li>
+              <li><i class="ri-check-double-line"></i>Producers actively seek and connect with talented individuals, creating a dynamic hub where creative visions meet the expertise needed to bring them to life.</li>
+              <li><i class="ri-check-double-line"></i>RetroCraft Hub serves as the nexus where producers find the skilled professionals they need, while talent discovers exciting opportunities to contribute their expertise to film projects. 🌟🎬</li>
+            </ul>
+            
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients">
+      <div class="container" data-aos="zoom-in">
+
+        <div class="clients-slider swiper">
+          <div class="swiper-wrapper align-items-center">
+            <div class="swiper-slide"><img src="../static/assets/img/clients/client-1.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="../static/assets/img/clients/client-2.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="../static/assets/img/clients/client-3.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="../static/assets/img/clients/client-4.jpg" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="../static/assets/img/clients/client-5.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="../static/assets/img/clients/client-6.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="../static/assets/img/clients/client-7.jpeg" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="../static/assets/img/clients/client-8.png" class="img-fluid" alt=""></div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Services</h2>
+          <p>Check our Services</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100" onclick="openForm()">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <h4><a>Find Professionals</a></h4>
+              <p>Search for skilled people for your production or put out a job post for professionals to apply. </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200" onclick="openForm()">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-file"></i></div>
+              <h4><a onclick="openForm()">See their profile</a></h4>
+              <p>Check their past works and working rate.Decide whom to hire according to your needs. </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300" onclick="openForm()">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-tachometer"></i></div>
+              <h4><a onclick="openForm()">Hire them!</a></h4>
+                <p>Make the payment and hire them immediately. Start bringing your creative vision to life!</p>
+            </div>
+          </div>
+
+          
+        </div>
+
+      </div>
+    </section>
+    <!-- End Services Section -->
+
+    
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container" data-aos="zoom-in">
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                <h3>Amit Khanna</h3>
+                <h4>Film Producer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  "RetroCraft Hub has become my go-to platform for assembling top-notch talent. The ease of finding skilled professionals who align with my project requirements is unparalleled. Kudos to RetroCraft for simplifying the hiring process!"
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Vikram Patel</h3>
+                <h4>Emerging Cinematographer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  "RetroCraft Hub is a game-changer for budding professionals like me. I landed my first major project through this platform, and the experience has been nothing short of phenomenal. Grateful for the opportunities!"
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                <h3>Riya Kapoor</h3>
+                <h4>Assistant Art Director</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  "RetroCraft Hub transformed my career! Within weeks, I connected with a visionary producer, and now, my artistic contributions are part of a critically acclaimed film. Thank you for making dreams come true!"
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                <h3>Arjun Mehta</h3>
+                <h4>Scriptwriter Extraordinaire</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  "RetroCraft Hub is where my storytelling journey took off. Connecting with passionate producers and finding projects that align with my creative vision has been an absolute joy. The possibilities are endless!"
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="../static/assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                <h3>Pooja Verma</h3>
+                <h4>Costume Designer Sensation</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  "RetroCraft Hub celebrates creativity! I've collaborated with incredible producers, bringing unique aesthetics to life. It's more than a platform; it's a community that nurtures talent and fosters artistic expression."
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Team</h2>
+          <p>Check our Team</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member" data-aos="fade-up" data-aos-delay="100">
+              <div class="member-img">
+                <img src="../static/assets/img/team/img.jpg" class="img-fluid" alt="">
+                <div class="social">
+                          <a href="https://www.linkedin.com/in/rishabh-jain-079340248/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                          <a href="https://github.com/rishabhJain1234" target="_blank"><i class="bi bi-github"></i></a>
+                          <a href="https://www.instagram.com/rishabhhjain_16/" target="_blank"><i class="bi bi-instagram"></i></a>
+                        </div>
+                      </div>
+                      <div class="member-info">
+                        <h4>Rishabh Jain</h4>
+                        <span>Chief Executive Officer</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                    <div class="member" data-aos="fade-up" data-aos-delay="200">
+                      <div class="member-img">
+                        <img src="../static/assets/img/team/img2.jpeg" class="img-fluid" alt="">
+                        <div class="social">
+                          <a href="https://www.linkedin.com/in/rishabh-jain-079340248/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                          <a href="https://github.com/rishabhJain1234" target="_blank"><i class="bi bi-github"></i></a>
+                          <a href="https://www.instagram.com/rishabhhjain_16/" target="_blank"><i class="bi bi-instagram"></i></a>
+                        </div>
+                      </div>
+                      <div class="member-info">
+                        <h4>Rishabh Jain</h4>
+                        <span>Product Manager</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                    <div class="member" data-aos="fade-up" data-aos-delay="300">
+                      <div class="member-img">
+                        <img src="../static/assets/img/team/img3.jpg" class="img-fluid" alt="">
+                        <div class="social">
+                          <a href="https://www.linkedin.com/in/rishabh-jain-079340248/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                          <a href="https://github.com/rishabhJain1234" target="_blank"><i class="bi bi-github"></i></a>
+                          <a href="https://www.instagram.com/rishabhhjain_16/" target="_blank"><i class="bi bi-instagram"></i></a>
+                        </div>
+                      </div>
+                      <div class="member-info">
+                        <h4>Rishabh Jain</h4>
+                        <span>CTO</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                    <div class="member" data-aos="fade-up" data-aos-delay="400">
+                      <div class="member-img">
+                        <img src="../static/assets/img/team/img 4.jpg" class="img-fluid" alt="">
+                        <div class="social">
+                          <a href="https://www.linkedin.com/in/rishabh-jain-079340248/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                          <a href="https://github.com/rishabhJain1234" target="_blank"><i class="bi bi-github"></i></a>
+                          <a href="https://www.instagram.com/rishabhhjain_16/" target="_blank"><i class="bi bi-instagram"></i></a>
+                        </div>
+              </div>
+              <div class="member-info">
+                <h4>Rishabh Jain</h4>
+                <span>Accountant</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Team Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Contact Us</p>
+        </div>
+
+        <div>
+          <iframe width="1300" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src="https://maps.google.com/maps?width=1300&amp;height=300&amp;hl=en&amp;q=IIT%20Roorkee%20roorkee+(IIT%20Roorkee)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href='https://google-map-generator.com/'>Maps Generator</a>
+
+        </div>
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>IIT Roorkee, 247667</p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>rishabhjain.1632004@gmail.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>9871522382</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+
+<!--Login Form-->
+
+<section id="login" class="login">
+<div class="full-screen">  
+  <div class="form-popup" id="myForm" style="border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);border:0px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" onclick="closeForm()">
+      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+    </svg>
+    <div class="container" style="width: 100%; height: 100%;">
+      <div class="row">
+        <div class="col" style="padding:0px;">
+          <img src="../static/assets/make_up_artist.jpg" style="width: 100%; height: 90%;" alt="">
+        </div>
+        <div class="col">
+
+
+    <div class="form-container"> 
+      <h3 id="this1">Create a new account</h3>
+      <span id="this2">Already have an account? </span><span  id="this3" role="button" onClick="signin()">Sign in</span></p>
+      <div class="form-columns">
+        <br>
+        <button class="gsi-material-button" style="width:320px">
+          <a href="{{url_for('google_login')}}" style="color:black;">
+          <div class="gsi-material-button-state"></div>
+          <div class="gsi-material-button-content-wrapper">
+            <div class="gsi-material-button-icon">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                <path fill="none" d="M0 0h48v48H0z"></path>
+              </svg>
+            </div>
+            <span class="gsi-material-button-contents">Continue with Google</span>
+            <span style="display: none;">Continue with Google</span>
+          </div>
+          </a>
+        </button>
+        </div>
+        <br>
+            <button role="button" style="width:320px;height:40px;border-radius: 7px;border: 0.5px solid #888888;display: flex;align-items: center;padding-left:15px;background-color: white;">
+              <svg width="28" height="18" viewBox="0 0 " xmlns="http://www.w3.org/2000/svg" style="margin-right: 15px;">
+                <path d="M14.5 0H1.5C0.671562 0 0 0.671562 0 1.5V10.5C0 11.3284 0.671562 12 1.5 12H14.5C15.3284 12 16 11.3284 16 10.5V1.5C16 0.671562 15.3284 0 14.5 0ZM14.5 1.5V2.77516C13.7993 3.34575 12.6823 4.233 10.2942 6.10297C9.76787 6.51694 8.72538 7.51147 8 7.49988C7.27475 7.51159 6.23191 6.51678 5.70584 6.10297C3.31813 4.23328 2.20078 3.34584 1.5 2.77516V1.5H14.5ZM1.5 10.5V4.69994C2.21606 5.27028 3.23153 6.07063 4.77931 7.28263C5.46234 7.82028 6.6585 9.00719 8 8.99997C9.33491 9.00719 10.5159 7.8375 11.2204 7.28288C12.7682 6.07091 13.7839 5.27034 14.5 4.69997V10.5H1.5Z"></path>
+              </svg>
+              <p style="margin-left: 47px;margin-top:13px;">Continue with email</p>
+            </button>
+            <p style="margin-top:180px;font-size:10px;">By joining, you agree to the RetroCraft Hub Terms of Service and to occasionally receive emails from us. Please read our Privacy</p>
+      </div>
+    </div>
+
+  </div>
+
+
+  </div>
+</div>
+</div>
+</div>
+</section>
+ 
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.animation = "slideIn 0.5s ease-in-out";
+  document.getElementById("myForm").style.display = "block";
+  document.querySelector(".full-screen").classList.add("rest-of-screen");
+  document.querySelector(".full-screen").addEventListener('click', function (event) {
+      var formPopup = document.getElementById('myForm');
+    
+      // Check if the clicked element is not inside the form-popup
+      if (!formPopup.contains(event.target)) {
+        closeForm(); // Call your closeForm function here
+      }
+    });
+  
+  
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.animation = "slideOut 0.3s ease-in-out";
+  setTimeout(function() {
+    document.getElementById("myForm").style.display = "none";
+  }, 200);
+  document.querySelector(".full-screen").classList.remove("rest-of-screen");
+}
+
+function signin(){
+  document.getElementById("this1").innerHTML = "Sign in to your account";
+  document.getElementById("this2").innerHTML = "Don't have an account? <a onClick='signup()'>Sign up</a>";
+}
+
+function signup(){
+  document.getElementById("this1").innerHTML = "Create a new account";
+  document.getElementById("this2").innerHTML = "Already have an account?";
+  document.getElementById("this3").innerHTML = "Sign in";
+}
+</script>
+
+
+{% endblock %}
+
+  

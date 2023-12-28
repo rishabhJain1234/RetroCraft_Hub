@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .welcome {
+      animation: fade 3s forwards;
+      color: black;
+      font-family: sans-serif;
+      font-size: 120px;
+    }
+    @media (max-width: 768px) {
+      .welcome {
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fade 3s forwards;
+      color: black;
+      font-family: sans-serif;
+      font-size: 50px;
+      }
+    }
+
+    @keyframes fade{
+      0% {
+        opacity: 0;
+      }
+      45% {
+        opacity: 1;
+      }
+      55% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      } 
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="welcome">Welcome {{user_name}}</div>
+
+  <script>
+    setTimeout(function() {
+      document.querySelector('.welcome').style.display = 'none';
+      window.location.href = '/dashboard';
+    }, 3300);
+
+    
+  </script>
+</body>
+</html>
