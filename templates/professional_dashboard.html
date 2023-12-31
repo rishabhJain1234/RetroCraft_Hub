@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>RetroCraft Hub Professional Dashboard</title>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Welcome to Your Professional Dashboard</h2>
+
+    <!-- User Profile Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            Your Profile
+        </div>
+        <div class="card-body">
+            <img src="{{ current_user.profile_picture }}" alt="Profile Picture" class="img-fluid rounded-circle" style="max-width: 100px;">
+            <h5 class="card-title">{{ current_user.display_name }}</h5>
+            <p class="card-text">{{ current_user.description }}</p>
+            <p class="card-text">Occupation: {{ current_user.occupation }}</p>
+            <p class="card-text">Skills: {{ current_user.skills }}</p>
+            <p class="card-text">Contact: {{ current_user.phone_no }}</p>
+        </div>
+    </div>
+
+    <!-- Ongoing Jobs Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            Your Ongoing Jobs
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for job in current_user.ongoing_jobs %}
+                <li class="list-group-item">{{ job.title }} - {{ job.description }} ({{ job.status }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Available Jobs Section with Filters -->
+    <div class="card mt-4">
+        <div class="card-header">
+            Available Jobs
+        </div>
+        <div class="card-body">
+            <!-- Job Filters -->
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="filterProfile">Job Profile</label>
+                        <select id="filterProfile" class="form-control">
+                            <option selected>All Profiles</option>
+                            <!-- Add dynamically populated options from available profiles -->
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="filterPaygrade">Paygrade</label>
+                        <select id="filterPaygrade" class="form-control">
+                            <option selected>All Paygrades</option>
+                            <!-- Add dynamically populated options from available paygrades -->
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="filterTime">Estimated Time</label>
+                        <select id="filterTime" class="form-control">
+                            <option selected>All Times</option>
+                            <!-- Add dynamically populated options from available time estimates -->
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+            </form>
+
+            <!-- Job Listings -->
+            <ul class="list-group mt-4">
+                {% for job in available_jobs %}
+                    <li class="list-group-item">
+                        <h5>{{ job.title }}</h5>
+                        <p>{{ job.description }}</p>
+                        <p>Profile: {{ job.profile }}</p>
+                        <p>Paygrade: {{ job.paygrade }}</p>
+                        <p>Estimated Time: {{ job.estimated_time }}</p>
+                        <a href="{{ url_for('job_details', job_id=job.id) }}" class="btn btn-info btn-sm">View Details</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

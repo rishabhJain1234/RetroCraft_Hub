@@ -1812,7 +1812,7 @@ svg.bi.bi-x {
   right: 0;
 }
 
-.producer{
+.producer , .professional{
   position: relative;
   display:none;
   padding: 60px;
@@ -1822,7 +1822,7 @@ svg.bi.bi-x {
   top:-55px;
 }
 
-#producer-login-form{
+#producer-login-form , #professional-login-form{
   padding: 2px;
   width:80%;
   height: 40%;
@@ -1835,13 +1835,13 @@ img.avatar{
   vertical-align: middle;
   }
 
-  #avatarPreview {
+  #avatarPreview , #avatarPreview0 {
     /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
     background-image: url('../img/profile.jpg');
     
     /* make a square container */
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 
     /* fill the container, preserving aspect ratio, and cropping to fit */
     background-size: cover;
@@ -1852,11 +1852,102 @@ img.avatar{
     /* round the edges to a circle with border radius 1/2 container size */
     border-radius: 50%;
 }
-form#details {
+#avatarPreview:hover , #avatarPreview0:hover{
+  scale: 1.1;
+  transition: all 0.3s ease-in-out;
+}
+input#imageUpload1 , input#imageUpload0 {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #ffc451;
+  border: 2px solid black;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+
+form#details1 ,form#details0 {
 width: 70%;
   margin: 0 auto;
 }
   
+.button_color{
+  background-color: #ffc451;
+  border: 2px solid black;
+}
 
+.button_color:hover ,#imageUpload1:hover , #imageUpload0:hover{
+  background-color: black;
+  color: #ffc451;
+  border: 2px solid #ffc451;
+  transition:all 0.3s;
+}
 
+.formdiv , .formdiv0{
+  color: white;
+  padding: 10px;
+  width:70%;
+  height: 40%;
+
+}
+
+select {
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 7px;
+}
+
+.new_header{
+  background-color:#151515;
+}
+
+.search_form{
+  position: relative;
+  width: 70%;
+  height:40px;
+  border-radius: 7px;
+}
+
+#search_button{
+  background-color: #ffc451;
+  border: 3px solid black;
+  color: black;
+}
+
+#search_button:hover{
+  background-color: black;
+  color: #ffc451;
+  border: 2px solid #ffc451;
+  transition:all 0.3s;
+}
+
+#search_bar{
+  width: 95%;
+  padding: 9px 10px;
+  border-radius: 7px;
+}
+
+.brief{
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background-color: #ffc451;
+  color: black;
+  padding: 8px;
+  border:2px solid black;
+  margin-top:20px;
+  border-radius: 7px;
+  transition: all 0.3s ease-in-out;
+}
+
+.brief:hover{
+  background-color: black;
+  color: #ffc451;
+  border: 2px solid #ffc451;
+  scale:1.1;
+  transition:all 0.3s;
+  cursor: pointer;
+}
 

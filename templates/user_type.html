@@ -71,21 +71,21 @@
         <form id="avatar_form" enctype="multipart/form-data" >
             <div id="avatarPreview" style="position:relative;margin: 0 auto;"></div>
             <br>
-            <input type="file" name="image" id="imageUpload" accept=".png, .jpg ,.jpeg" style="width:60%;" />
-            <button type="submit" class="btn btn-primary" onclick="submitForm()">Save Image</button>
+            <input type="file" name="image" id="imageUpload0" accept=".png,.jpg,.jpeg" style="width:60%;" />
+            <button type="submit" class="btn button_color"  onclick="submitForm()">Save Image</button>
         </form>
     </div>
 </div>
 <br>
-<div class="container" id="details" style="margin:0 auto;">
-    <form id="details" style="margin:0 auto;">
+<div class="container" id="details1div" style="margin:0 auto;">
+    <form method="POST" action="/login_successful" id="details1" style="margin:0 auto;">
         <div class="mb-3 text-center" >
-            <label for="producer-username" class="form-label" style="color:white;">Username</label>
-            <input type="text" class="form-control" id="producer-username" placeholder="Enter your username">
+            <label for="username" class="form-label" style="color:white;">Username</label>
+            <input type="text" class="form-control" id="username1"  name="username" placeholder="Enter your username">
         </div>
         <div class="mb-3 text-center">
-            <label for="producer-password" class="form-label" style="color:white;">Password</label>
-            <input type="password" class="form-control" id="producer-password" placeholder="Enter your password">
+            <label for="password" class="form-label" style="color:white;">Password</label>
+            <input type="password" class="form-control" id="password1" name="password" placeholder="Enter your password">
         </div>
         
         
@@ -98,7 +98,49 @@
                 <option value="writer">Writer</option>
             </select>
         </div> -->
-        <button type="submit" class="btn btn-primary d-flex justify-content-center" style="position: relative;left: 40%;">Login</button>
+        <button type="submit" class="btn d-flex justify-content-center button_color" style="position: relative;left: 40%;">Login</button>
+    </form>
+</div>
+</div>
+
+
+<!--Professional-->
+<div class="container professional" >
+<!--Professional Login Form-->
+<div id="professional-login-form" class="container">
+<!-- Circular Avatar -->
+    <div class="avatar-edit">
+        <form id="avatar_form_0" enctype="multipart/form-data" >
+            <div id="avatarPreview0" style="position:relative;margin: 0 auto;"></div>
+            <br>
+            <input type="file" name="image" id="imageUpload1" accept=".png,.jpg,.jpeg" style="width:60%;" />
+            <button type="submit" class="btn button_color" onclick="submitForm0()">Save Image</button>
+        </form>
+    </div>
+</div>
+<br>
+<div class="container" id="details0div" style="margin:0 auto;">
+    <form method="POST" action="/login_successful" id="details0" style="margin:0 auto;">
+        <div class="mb-3 text-center" >
+            <label for="username" class="form-label" style="color:white;">Username</label>
+            <input type="text" class="form-control" id="username0" name="username" placeholder="Enter your username">
+        </div>
+        <div class="mb-3 text-center">
+            <label for="password" class="form-label" style="color:white;">Password</label>
+            <input type="password" class="form-control" id="password0"  name="password" placeholder="Enter your password">
+        </div>
+        
+        
+        <!-- <div class="mb-3">
+            <label for="professional-type" class="form-label" style="color:white;">Professional Type</label>
+            <select class="form-select" id="professional-type">
+                <option value="">Select professional type</option>
+                <option value="designer">Designer</option>
+                <option value="developer">Developer</option>
+                <option value="writer">Writer</option>
+            </select>
+        </div> -->
+        <button type="submit" class="btn d-flex justify-content-center button_color" style="position: relative;left: 40%;">Login</button>
     </form>
 </div>
 </div>
@@ -107,27 +149,16 @@
 
 
 
-
 <script>
-    function next(v) {
-        document.querySelector(".thisdiv").style.left="-100%";
-        document.querySelector(".thisdiv").style.transition="0.5s";
-        setTimeout(function() {
-            document.querySelector(".thisdiv").style.display = "none";
-        }, 500);
-        if(v===1){
-            producer();
-        }
-        else{
-            professional();
-        }
-    }
 
     function producer(){
         document.querySelector(".producer").style.animation="fadeIn 0.4s ease-in-out";
         document.querySelector(".producer").style.display="block";
-        
+    }
 
+    function professional(){
+        document.querySelector(".professional").style.animation="fadeIn 0.4s ease-in-out";
+        document.querySelector(".professional").style.display="block";
     }
 
 
@@ -142,7 +173,9 @@
       function submitForm() {
         const form = document.getElementById('avatar_form');
         const formData = new FormData(form);
-    
+
+        formData.append('v', 1);
+        
         // Use async/await to handle the asynchronous fetch call
         (async () => {
             try {
@@ -168,7 +201,50 @@
         // Prevent the default form submission behavior
         event.preventDefault();
     }
+
+    function submitForm0() {
+        const form = document.getElementById('avatar_form_0');
+        const formData = new FormData(form);
+        
+        formData.append('v', 0);
+        // Use async/await to handle the asynchronous fetch call
+        (async () => {
+            try {
+                const response = await fetch('/save_image', {
+                    method: 'POST',
+                    body: formData,
+                });
     
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+    
+                const data = await response.json();
+    
+                // Update the avatar div with the new image URL
+                const avatarPreview = document.getElementById('avatarPreview0');
+                avatarPreview.style.backgroundImage = `url(${data.image_url})`;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        })();
+    
+        // Prevent the default form submission behavior
+        event.preventDefault();
+    }
+    function next(v){
+        document.querySelector(".thisdiv").style.left="-100%";
+        document.querySelector(".thisdiv").style.transition="0.5s";
+        setTimeout(function() {
+            document.querySelector(".thisdiv").style.display = "none";
+        }, 500);
+        if(v===1){
+            producer();
+        }
+        else{
+            professional();
+        }
+    }   
     
       
 </script>

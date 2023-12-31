@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>RetroCraft Hub</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/assets/img/favicon.png" rel="icon">
+  <link href="../static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/assets/css/style.css" rel="stylesheet">
+
+</head>
+<section id="user_type">
+
+<div class="container mt-5 formdiv" style="position:relative;" data-aos="zoom-in">
+    <div id="page1">
+        <h2>Tell us about yourself !</h2>
+        <form method="POST" action="/producer_details">
+            <br>
+            <!-- Purpose Dropdown -->
+            <div class="form-group">
+                <label for="purpose">What do you plan using RetroCraft Hub for ?</label>
+                <select class="purpose" id="purpose" name="purpose">
+                    <option value="beginner">Primary job/Business</option>
+                    <option value="intermediate">Side Project</option>
+                    <option value="expert">Personal Use</option>
+                </select>
+            </div>
+            <br>
+
+            <!-- Team Size Dropdown-->
+            <div class="form-group">
+                <label for="teamSize">How many people are in your team?</label>
+                <select class="teamSize" id="teamSize" name="teamSize">
+                    <option value="1">1-5</option>
+                    <option value="2-5">5-50</option>
+                    <option value="6-10">50-500</option>
+                    <option value="11-20">50-1000</option>
+                    <option value="1000+">1000+</option>
+                </select>
+            </div>
+            <br>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
+            </div>
+            <br>
+
+        <!-- Submit Button -->
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+</div>
+</section>
+
+<script src="../static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="../static/assets/vendor/aos/aos.js"></script>
+<script src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="../static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="../static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="../static/assets/vendor/php-email-form/validate.js"></script>
+
+<script src="../static/assets/js/main.js"></script>
+
+</body>
+</html>
