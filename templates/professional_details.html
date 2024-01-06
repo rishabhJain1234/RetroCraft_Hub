@@ -31,10 +31,10 @@
 </head>
 <section id="user_type">
 
-<div class="container mt-5 formdiv" style="position:relative;" data-aos="zoom-in">
+<div class="container formdiv" style="position:relative;" data-aos="zoom-in">
     <div id="page1">
         <h2>Tell us about yourself !</h2>
-        <form method="POST" action="/professional_details">
+        <form method="POST" action="/professional_details?user_id={{user_id}}">
             <br>
             <!-- Freelancing Experience Dropdown -->
             <div class="form-group">
@@ -52,44 +52,73 @@
                 <label for="phoneNumber">Phone Number</label>
                 <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
             </div>
-
-    </div>
-
-
-            <!-- Next Button -->
             <br>
-            <button id="nextButton" type="button" class="btn btn-primary" onclick="nextPage()">Next</button>
-    </div>
 
-
-<div class="container mt-5 formdiv0" style="position:relative;display:none;" >
-    <div id="page2">
-        <h2>Tell us about yourself !</h2>
-            <br>
             <!-- Occupation -->
             <div class="form-group">
                 <label for="occupation">Occupation</label>
-                <input type="text" class="form-control" id="occupation" name="occupation" placeholder="Enter your occupation">
+                <select class="form-control" id="occupation" name="occupation" placeholder="occupation">
+                    <option value="">Select a category</option>
+                    <option value="Lead Actor">Lead Actor</option>
+                    <option value="Supporting Actor">Supporting Actor</option>
+                    <option value="Ensemble Cast">Ensemble Cast</option>
+                    <option value="Director of Photography (DP)">Director of Photography (DP)</option>
+                    <option value="Cinematographer">Cinematographer</option>
+                    <option value="Film Director">Film Director</option>
+                    <option value="Assistant Director">Assistant Director</option>
+                    <option value="Set Designer">Set Designer</option>
+                    <option value="Art Director">Art Director</option>
+                    <option value="Production Designer">Production Designer</option>
+                    <option value="Assistant Editor">Assistant Editor</option>
+                    <option value="Video Editor">Video Editor</option>
+                    <option value="Sound Designer">Sound Designer</option>
+                    <option value="Sound Engineer">Sound Engineer</option>
+                    <option value="Foley Artist">Foley Artist</option>
+                    <option value="Costume Designer">Costume Designer</option>
+                    <option value="Makeup Artist">Makeup Artist</option>
+                    <option value="Hair Stylist">Hair Stylist</option>
+                    <option value="Chief Lighting Technician (Gaffer)">Chief Lighting Technician (Gaffer)</option>
+                    <option value="Lighting Designer">Lighting Designer</option>
+                    <option value="VFX Supervisor">VFX Supervisor</option>
+                    <option value="VFX Artist">VFX Artist</option>
+                    <option value="Digital Compositor">Digital Compositor</option>   
+                </select>
             </div>
             <br>
 
             <!-- Skills -->
             <div class="form-group">
-                <label for="skills">Skills</label>
+                <label for="skills">Previous Works</label>
                 <input type="text" class="form-control" id="skills" name="skills" placeholder="Enter your skills">
             </div>
             <br>
+            <label for="description">Describe Yourself</label>
+                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write a brief description about yourself"></textarea>
+                <br>
 
+             <!-- Next Button -->
+             <button id="nextButton" type="button" class="btn submit_button" onclick="nextPage()">Next</button>
+        </div>
+        </div>
 
+        <div class="container mt-5 formdiv0" style="position:relative;display:none;" >
+            <div id="page2">
             <!-- Describe Yourself Block (Description) -->
             <div class="form-group">
-                <label for="description">Describe Yourself</label>
-                <textarea class="form-control" id="description" name="description" rows="4" placeholder="Write a brief description about yourself"></textarea>
+                <h3>Lets talk pricing for your plans!</h3>
+                <label for="Pricing1">Price for Basic Plan (in Rs)</label>
+                <input type="number" class="form-control" id="Pricing1" name="Pricing1" placeholder="Enter your price">
+                <br>
+                <label for="Pricing2">Price for Standard Plan (in Rs)</label>
+                <input type="number" class="form-control" id="Pricing2" name="Pricing2" placeholder="Enter your price">
+                <br>
+                <label for="Pricing3">Price for Premium Plan (in Rs)</label>
+                <input type="number" class="form-control" id="Pricing3" name="Pricing3" placeholder="Enter your price">
             </div>
             <br>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn submit_button">Submit</button>
         </form>
     </div>
 </div>

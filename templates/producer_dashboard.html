@@ -34,7 +34,7 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top new_header" style="padding:10px;">
-    <div class="container d-flex align-items-center justify-content-lg-between ">
+    <div class="container d-flex align-items-center justify-content-lg-between " style="position:relative;">
 
       <h6 class="logo me-auto me-lg-0"><a href="index.html">RetroCraft Hub<span>.</span></a></h6>
       
@@ -43,9 +43,66 @@
         <input id="search_bar" type="text" class="form-control" placeholder="What service are you looking for today?">
         <button id="search_button" type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
     </form> <!--End Search Bar-->
+
    <!--Notification-->
-   <i class="bi bi-bell" style="color:#ffc451"></i><!--End Notification-->
-    
+  <div id="notification-bell" onclick="toggleNotificationDropdown()">
+    <i id="notification-icon" class="bi bi-bell" style="color:#ffc451"></i>
+    {% if message!='Default' %}
+    <img src="../static/assets/img/new_notification.svg" alt="Notification" id="notification-img" style="margin-bottom:6px;position:absolute;width:10px;"></img>
+    {% endif %}
+  </div>
+
+  <div id="notification_one_icon" style="display: none;position:absolute;">
+    <img src="../static/assets/img/new_notification.svg" alt="Notification" id="notification-img" style="margin-bottom:6px;position:absolute;width:11px;left: 1166px;top:-14px;"></img>
+  </div>
+
+  <div id="notification-dropdown" style="display: none;z-index:10000;background-color:white;">
+    <h5 id="notification-heading">Notifications:</h5>
+    <hr>
+    {% if message=='Default' or message=="" or message is none %}
+      <div style="display: flex; justify-content: center; align-items: center;height:120px;" id="no_notification">
+        <img src="../static/assets/img/no_notifications.png" alt="Notification" id="notification-img" style="width:70px;">
+        <p id="notification-text" style="margin-bottom:0;">No notifications</p>
+      </div>
+      <div id="notification-div1 " class="notification notification1" style="display:none;">
+        <div class="row">
+          <div class="col-md-3">
+            <img src="../static/assets/img/notification.png" alt="Notification" id="notification-img" style="width:70px;margin-bottom:6px;">
+          </div>
+          <div class="col-md-9">
+            <p id="notification-text">Your brief just got a new application from a professional! Click here to view.</p>
+          </div>
+        </div>
+        </div>
+        <hr>
+    {% else %}
+    <div class="container notification">
+      <div class="row">
+        <div class="col-md-3">
+          <img src="../static/assets/img/notification.png" alt="Notification" id="notification-img" style="width:70px;margin-bottom:6px;">
+        </div>
+        <div class="col-md-9">
+          <p id="notification-text">{{message}}</p>
+        </div>
+      </div>
+      </div>
+      <hr>
+      <div id="notification-div0" class="notification" style="display: none;">
+        <div class="row">
+          <div class="col-md-3">
+            <img src="../static/assets/img/notification.png" alt="Notification" id="notification-img" style="width:70px;margin-bottom:6px;">
+          </div>
+          <div class="col-md-9">
+            <p id="notification-text">Your brief just got a new application from a professional! Click here to view.</p>
+          </div>
+        </div>
+        <hr>
+        </div>
+        
+    {% endif %}
+  </div>
+    <!--End Notification-->
+
     <!--My Orders-->
     <a href="my_orders.html" class="my_orders"><i class="bi bi-cart"></i></a><!--End My Orders-->
     
@@ -57,95 +114,52 @@
 
   </header><!-- End Header -->
 
-<div class="container" style="margin-top:100px;">
+<div class="container" style="margin-top:100px;animation:fadeIn 1s ease-in-out;">
     <h2 style="font-weight: 700;color: #222325;">Hello, {{ current_user.display_name }}</h2>
-    <div class="brief" onclick="window.location.href='/brief_proposal'">
-        <h5>Create a brief to get proposals from sellers</h5>
-        <p>Let us do the searching</p>
-            <div style="position: absolute;left: 93%;top: 38%;">
-                <i class="bi bi-arrow-right"></i>
-            </div>
+    <div class="brief" onclick="window.location.href='/brief_proposal?user_id={{user_id}}'" style="box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1);">
+      <h5>Create a brief to get proposals from professionals</h5>
+      <p>Let us do the searching</p>
+      <div style="position: absolute; left: 93%; top: 38%;">
+        <i class="bi bi-arrow-right"></i>
+      </div>
     </div>
     <br>
     <h3>Most Popular Gigs</h3>
 
-    <!-- User Profile Section -->
-    <div class="card mt-4">
-        <div class="card-body">
-            <h5 class="card-title">{{ current_user.display_name }}</h5>
-            <p class="card-text">{{ current_user.description }}</p>
-            <p class="card-text">Occupation: {{ current_user.occupation }}</p>
-            <p class="card-text">Skills: {{ current_user.skills }}</p>
-            <p class="card-text">Education: {{ current_user.education }}</p>
-            <p class="card-text">Contact: {{ current_user.phone_no }}</p>
-        </div>
+    <!--Professionals list-->
+    <div class="container" style="margin-top:40px;">
+      {% for professional in professionals_list %}
+          {% if loop.index % 4 == 1 %}
+          <br>
+              <div class="row">
+          {% endif %}
+        <div class="col-md-3 col-sm-1" onclick="window.location.href='/professional_pp?user_id={{user_id}}&professional_id={{professional.id}}'">
+          <div class="card-body text-center" style="position:relative;">
+            <img src="{{professional.profile_picture}}" alt="avatar" class="rounded-circle img-fluid pp" style="margin-bottom:6px;">
+            <div class="row">
+              <div class="col-md-6">
+                <h5 style="position:relative;width:fit-content;left:5%;">{{professional.display_name}}</h5>
+                <p style="margin-bottom:8px;position:relative;width:fit-content;left:5%;">{{professional.occupation}}</p>
+                <p style="margin-bottom:8px;position:relative;width:fit-content;left:5%;">{{professional.phone_no}}</p>
+              </div>
+                <div class="col-md-6" style="border-left:2px solid #ffc451;font-size:12px;font-style: italic;">
+                <p style="margin-bottom:8px;">{{professional.description}}</p>
+            </div>
+            </div>
+          </div>
     </div>
 
-    <!-- Ongoing Jobs Section -->
-    <div class="card mt-4">
-        <div class="card-header">
-            Your Ongoing Jobs
-        </div>
-        <ul class="list-group list-group-flush">
-            {% for job in current_user.ongoing_jobs %}
-                <li class="list-group-item">{{ job.title }} - {{ job.description }} ({{ job.status }})</li>
-            {% endfor %}
-        </ul>
-    </div>
+      {% if loop.index % 4 == 0 or loop.last %}
+          </div>
+      {% endif %}
+  {% endfor %}
+</div> <!--Professionals list-->
 
-    <!-- Available Jobs Section with Filters -->
-    <div class="card mt-4">
-        <div class="card-header">
-            Available Jobs
-        </div>
-        <div class="card-body">
-            <!-- Job Filters -->
-            <form>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="filterProfile">Job Profile</label>
-                        <select id="filterProfile" class="form-control">
-                            <option selected>All Profiles</option>
-                            <!-- Add dynamically populated options from available profiles -->
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="filterPaygrade">Paygrade</label>
-                        <select id="filterPaygrade" class="form-control">
-                            <option selected>All Paygrades</option>
-                            <!-- Add dynamically populated options from available paygrades -->
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="filterTime">Estimated Time</label>
-                        <select id="filterTime" class="form-control">
-                            <option selected>All Times</option>
-                            <!-- Add dynamically populated options from available time estimates -->
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Apply Filters</button>
-            </form>
+        
 
-            <!-- Job Listings -->
-            <ul class="list-group mt-4">
-                {% for job in available_jobs %}
-                    <li class="list-group-item">
-                        <h5>{{ job.title }}</h5>
-                        <p>{{ job.description }}</p>
-                        <p>Profile: {{ job.profile }}</p>
-                        <p>Paygrade: {{ job.paygrade }}</p>
-                        <p>Estimated Time: {{ job.estimated_time }}</p>
-                        <a href="{{ url_for('job_details', job_id=job.id) }}" class="btn btn-info btn-sm">View Details</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
 </div>
-
   <!-- ======= Footer ======= -->
-  <footer id="footer">
+  <footer id="footer" style="margin-top:80px;">
     <div class="footer-top">
       <div class="container">
         <div class="row">
@@ -212,6 +226,8 @@
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+
   <!-- Vendor JS Files -->
   <script src="../static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="../static/assets/vendor/aos/aos.js"></script>
@@ -223,6 +239,46 @@
 
   <!-- Template Main JS File -->
   <script src="../static/assets/js/main.js"></script>
+
+  <script>
+
+    function professionalIdView(professional_id) {
+      window.location.href = '/professional_pp?user_id={{user_id}}&professional_id=' + professional_id;
+    }
+
+    const socket = io.connect('http://' + document.domain + ':' + location.port);
+    socket.emit('join_room_event', { 'user_id': {{user_id}} });
+
+    socket.on('application_notification', function (data) {
+      // Handle the application notification, e.g., display a notification to the producer
+      console.log('Application received:', data);
+      const brief_id = data.brief_id;
+      const professional_id = data.professional_id;
+      
+      document.getElementById('notification_one_icon').style.display = 'block';
+      {% if message=='Default' or message=="" or message is none %}
+          document.getElementById('no_notification').remove();
+          document.querySelector('.notification1').style.display = 'block';
+          document.querySelector('.notification1').addEventListener('click', function() {
+            professionalIdView(professional_id);
+          });
+      
+      {% else %}
+        document.getElementById('notification-div0').style.display = 'block';
+        document.getElementById('notification-div0').addEventListener('click', function() {
+          professionalIdView(professional_id);
+        });
+      {% endif %}
+
+
+    });
+
+    function toggleNotificationDropdown() {
+        // Toggle the visibility of the notification dropdown
+        const dropdown = document.getElementById('notification-dropdown');
+        dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'block' : 'none';
+    }
+</script>
 
 </body>
 

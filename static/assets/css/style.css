@@ -1782,14 +1782,7 @@ svg.bi.bi-x {
   padding: 10px;
 }
 
-.card:hover{
-  background-color: #ffc451;
-}
 
-.box1:hover , .box2:hover {
-  transform: scale(1.1);
-  transition: all 0.3s ease-in-out; 
-}
 
 .box1 , .box2{
   transition: all 0.3s ease-in-out;
@@ -1873,9 +1866,16 @@ width: 70%;
   margin: 0 auto;
 }
   
-.button_color{
+.button_color , .submit_button{
   background-color: #ffc451;
   border: 2px solid black;
+}
+
+.submit_button:hover{
+  background-color: black;
+  color: #ffc451;
+  border: 3px solid #ffc451;
+  transition:all 0.3s;
 }
 
 .button_color:hover ,#imageUpload1:hover , #imageUpload0:hover{
@@ -1951,3 +1951,124 @@ select {
   cursor: pointer;
 }
 
+.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top
+{
+  top: 835.411px;
+}
+
+.bi-bell{
+  transition:all 0.3s;
+}
+
+.bi-bell:hover{
+  color: #ffc451;
+  scale:1.2;
+  transition:all 0.3s;
+  cursor: pointer;
+
+}
+
+.my_orders{
+  transition:all 0.3s;
+}
+
+.bi-cart:hover , .my_orders:hover{
+  color: #ffc451;
+  scale:1.1;
+  transition:all 0.3s;
+  cursor: pointer;
+}
+
+.card-body{
+  border: 2px solid black;
+  border-radius: 7px;
+  transition:all 0.3s;
+  height: 100%;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.card-body:hover{
+  background-color: black;
+  color: #ffc451;
+  border: 3px solid #ffc451;
+  scale:1.1;
+  transition:all 0.3s;
+}
+
+.pp{
+  width: 150px;
+  margin-top:10px;
+  border: 3px solid black;
+  border:2px solid #ffc451;
+}
+
+.basic_details , .standard_details , .premium_details{
+  width: min-content;
+  position: relative;
+  left: 35%;
+  transition:all 0.5s;
+}
+
+.opened{
+  display: block;
+  background-color: #ffc451;
+  color: black;
+  border:2px solid black;
+  transition: all 0.3s ease-in-out;
+}
+
+.pricing{
+  transition: all 0.3s ease-in-out;
+}
+
+.pricing:hover{
+  background-color: black;
+  color: #ffc451;
+  border: 2px solid #ffc451;
+  scale:1.1;
+  transition:all 0.3s;
+  cursor: pointer;
+}
+
+.basic , .standard , .premium{
+  background-color: black;
+  color: #ffc451;
+  transition: all 0.3s ease-in-out;
+}
+
+#notification-dropdown{
+  position: absolute;
+  top: 130%;
+  right: 10%;
+  width: 25vw;
+  height:45vh;
+  color: black;
+  border:2px solid black;
+  border-radius: 7px;
+  transition: all 0.3s ease-in-out;
+  z-index: 100;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.notification{
+  transition: all 0.3s ease-in-out;
+}
+
+.notification:hover{
+  scale:1.1;
+  transition:all 0.3s;
+}
+
+.apply_brief{
+  position: relative;
+  margin-top:20px;
+  border-radius: 7px;
+  transition: all 0.3s ease-in-out;
+}
+
+.card-body:hover .apply_for_brief {
+  display: block;
+  color:black;
+}

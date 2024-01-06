@@ -34,15 +34,15 @@
 <div class="container mt-5 formdiv" style="position:relative;" data-aos="zoom-in">
     <div id="page1">
         <h2>Tell us about yourself !</h2>
-        <form method="POST" action="/producer_details">
+        <form method="POST" action="/producer_details?user_id={{user_id}}">
             <br>
             <!-- Purpose Dropdown -->
             <div class="form-group">
                 <label for="purpose">What do you plan using RetroCraft Hub for ?</label>
                 <select class="purpose" id="purpose" name="purpose">
-                    <option value="beginner">Primary job/Business</option>
-                    <option value="intermediate">Side Project</option>
-                    <option value="expert">Personal Use</option>
+                    <option value="Primary job/Business">Primary job/Business</option>
+                    <option value="Side Project">Side Project</option>
+                    <option value="Personal Use">Personal Use</option>
                 </select>
             </div>
             <br>
@@ -68,7 +68,7 @@
             <br>
 
         <!-- Submit Button -->
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn submit_button">Submit</button>
         </form>
     </div>
 </div>

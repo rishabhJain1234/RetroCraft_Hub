@@ -1,0 +1,7 @@
+(5)Chat box
+(6)prev jobs
+(7)review
+(8)payment portal
+(9)producer profile
+(10)Search
+(11)Youtube channel

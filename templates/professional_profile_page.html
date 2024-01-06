@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>RetroCraft Hub</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/assets/img/favicon.png" rel="icon">
+  <link href="../static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../static/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top new_header" style="padding:10px;">
+    <div class="container d-flex align-items-center justify-content-lg-between ">
+
+      <h6 class="logo me-auto me-lg-0"><a href="index.html">RetroCraft Hub<span>.</span></a></h6>
+      
+    <!-- Search Bar-->
+    <form class="d-none d-lg-flex search_form">
+        <input id="search_bar" type="text" class="form-control" placeholder="What service are you looking for today?">
+        <button id="search_button" type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+    </form> <!--End Search Bar-->
+   <!--Notification-->
+   <i class="bi bi-bell" style="color:#ffc451"></i><!--End Notification-->
+    
+    <!--My Orders-->
+    <a href="my_orders.html" class="my_orders"><i class="bi bi-cart"></i></a><!--End My Orders-->
+    
+    <!--profile_image-->
+      <div id="img_profile">
+      <img src="{{ current_user.profile_picture }}" alt="Profile Picture" class="img-fluid rounded-circle" style="max-width: 45px;">
+      </div>
+    </div><!--End profile_image-->
+
+  </header><!-- End Header -->
+
+
+  <!--profile-->
+  <div class="container" style="margin-top:100px;" data-aos="zoom-in">
+    <div class="row">
+        <div class="col-md-8 col-sm-1">
+            <h2><strong>{{professional.description}}</strong></h2>
+            <br>
+            <h4>{{professional.display_name}}</h4>
+            <ul>
+                <li><h5>{{professional.occupation}}</h5></li>
+                <li><h5>{{professional.experience}}</h5></li>
+                <li><h5>{{professional.skills}}</h5></li>
+            </ul>
+            <img src="{{professional.profile_picture}}" alt="Profile Picture" class="img-fluid" style="max-width: 445px;">
+            <br>
+            <br>
+            <h4>Contact Details</h4>
+            <ul>
+                <li><h5>{{professional.username}}</h5></li>
+                <li><h5>{{professional.phone_no}}</h5></li>
+            </ul>
+            <br>
+            <h4>Jobs</h4>
+            <ul>
+        
+        </div>
+        <div class="col-md-4 col-sm-1 pricing" style="position:fixed;right:0;margin-bottom:80px;border:2px solid black;height:28vh;width:25%;right:8%;padding:0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 basic opened" style="border:2px solid black;background-color:#ffc451;color:black;" onclick="openPackageDetails('basic')">
+                        <p style="margin:5px;">Basic</p>
+                    </div>
+                    <div class="col-md-4 standard" style="border:2px solid black;" onclick="openPackageDetails('standard')">
+                        <p style="margin:5px;">Standard</p>
+                    </div>
+                    <div class="col-md-4 premium" style="border:2px solid black;" onclick="openPackageDetails('premium')">
+                        <p style="margin:5px;">Premium</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="basic_details" style:"display:block;" >
+                <br>
+                <h4><strong>₹{{professional.pricing1}}</strong></h4>
+                <button class="btn submit_button" onclick="pricing(1,{{user_id}},{{professional.id}});window.location.href='/producer_dashboard{{user_id}}?message=Sucessfully booked with Artist: {{professional.display_name}}'">Continue</button>
+            </div>
+
+            <div class="standard_details" style="display:none;" >
+                <br>
+                <h4><strong>₹{{professional.pricing2}}</strong></h4>
+                <button class="btn submit_button" onclick="pricing(2,{{user_id}},{{professional.id}});window.location.href='/producer_dashboard{{user_id}}?message=Sucessfully booked with Artist: {{professional.display_name}}'">Continue</button>
+            </div>
+
+            <div class="premium_details" style="display:none;" >
+                <br>
+                <h4><strong>₹{{professional.pricing3}}</strong></h4>
+                <button class="btn submit_button" onclick="pricing(3,{{user_id}},{{professional.id}});window.location.href='/producer_dashboard{{user_id}}?message=Sucessfully booked with Artist: {{professional.display_name}}'">Continue</button>
+            </div>
+                    
+        </div>
+    </div>
+</div>
+  <!-- ======= Footer ======= -->
+  <footer id="footer" style="margin-top:80px;">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-info">
+              <h3>#RetroCraftHub<span>.</span></h3>
+              <p>
+                IIT Roorkee <br>
+                247667, India<br><br>
+                <strong>Phone:</strong> 9871522382<br>
+                <strong>Email:</strong> rishabhjain.1632004@gmail.com<br>
+              </p>
+              <div class="social-links mt-3">
+                <a href="https://www.linkedin.com/in/rishabh-jain-079340248/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/rishabhJain1234" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="https://www.instagram.com/rishabhhjain_16/" target="_blank"><i class="bi bi-instagram"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Subscribe to our newsletter!</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>RetroCraft Hub</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script>
+    function openPackageDetails(plan){
+        if(plan == 'basic'){
+            document.getElementsByClassName('basic')[0].style.backgroundColor = "#ffc451";
+            document.getElementsByClassName('basic')[0].style.color = "black";
+            document.getElementsByClassName('standard')[0].style.backgroundColor = "black";
+            document.getElementsByClassName('standard')[0].style.color = "#ffc451";
+            document.getElementsByClassName('premium')[0].style.backgroundColor = "black";
+            document.getElementsByClassName('premium')[0].style.color = "#ffc451";
+            document.getElementsByClassName('basic_details')[0].style.display = "block";
+            document.getElementsByClassName('standard_details')[0].style.display = "none";
+            document.getElementsByClassName('premium_details')[0].style.display = "none";
+        }
+        else if(plan == 'standard'){
+            document.getElementsByClassName('basic')[0].style.backgroundColor = "black";
+            document.getElementsByClassName('basic')[0].style.color = "#ffc451";
+            document.getElementsByClassName('standard')[0].style.backgroundColor = "#ffc451";
+            document.getElementsByClassName('standard')[0].style.color = "black";
+            document.getElementsByClassName('premium')[0].style.backgroundColor = "black";
+            document.getElementsByClassName('premium')[0].style.color = "#ffc451";
+            document.getElementsByClassName('basic_details')[0].style.display = "none";
+            document.getElementsByClassName('standard_details')[0].style.display = "block";
+            document.getElementsByClassName('premium_details')[0].style.display = "none";
+        }
+        else if(plan == 'premium'){
+            document.getElementsByClassName('basic')[0].style.backgroundColor = "black";
+            document.getElementsByClassName('basic')[0].style.color = "#ffc451";
+            document.getElementsByClassName('standard')[0].style.backgroundColor = "black";
+            document.getElementsByClassName('standard')[0].style.color = "#ffc451";
+            document.getElementsByClassName('premium')[0].style.backgroundColor = "#ffc451";
+            document.getElementsByClassName('premium')[0].style.color = "black";
+            document.getElementsByClassName('basic_details')[0].style.display = "none";
+            document.getElementsByClassName('standard_details')[0].style.display = "none";
+            document.getElementsByClassName('premium_details')[0].style.display = "block";
+        }
+    }
+
+    function pricing(plan,user_id,professional_id){
+        url=`/professional_pp`;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user_id: user_id,
+                professional_id: professional_id,
+                plan: plan
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                // Check if the response has a redirect status (302)
+                if (response.status === 302) {
+                    // Extract the redirect URL from the 'Location' header
+                    const redirectUrl = response.headers.get('Location');
+    
+                    // Redirect the browser to the new URL
+                    window.location.href = redirectUrl;
+                } else {
+                    // Handle other successful responses or data processing
+                    return response.json();
+                }
+            } else {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+        })
+        .then(data => {
+            // Handle the data returned from the fetch call if needed
+            console.log(data);
+        })
+        .catch(error => {
+            // Handle errors that occur during the fetch
+            console.error('Fetch error:', error);
+        });
+        
+    }
+
+  </script>
+
+  <!-- Vendor JS Files -->
+  <script src="../static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../static/assets/vendor/aos/aos.js"></script>
+  <script src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../static/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../static/assets/js/main.js"></script>
+
+</body>
+
+</html>
