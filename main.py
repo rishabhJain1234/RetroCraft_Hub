@@ -5,6 +5,8 @@ import os
 from dotenv import load_dotenv
 from authlib.integrations.flask_client import OAuth
 from flask_socketio import SocketIO, emit,Namespace,join_room,leave_room
+import requests
+from sqlalchemy import func
 
 
 app = Flask(__name__)
@@ -244,7 +246,34 @@ with app.app_context():
             
             return redirect(url_for('producer_dashboard',user_id=user_id,message=message))
         return render_template('brief_proposal.html',user_id=user_id)    
-    
+
+        
+    @app.route('/producer_profile_page_for_himself<int:user_id>')
+    @login_required
+    def producer_profile_page_for_himself(user_id):
+        user=User.query.filter_by(id=user_id).first()
+        login_user(user)
+        producer=User.query.filter_by(id=user_id).first()
+        jobs_list=Job.query.filter_by(producer_id=user_id).all()
+        if jobs_list:
+            professionals=[]
+            plans=[]
+            for job in jobs_list:
+                professional=User.query.filter_by(id=job.professional_id).first()
+                professionals.append(professional)
+                if job.plan==1 or job.plan=="1":
+                    plans.append("Basic")
+                elif job.plan==2 or job.plan=="2":
+                    plans.append("Standard")
+                else:
+                    plans.append("Premium")
+        else:
+            professionals=[]
+            plans=[]
+            jobs_list=[]
+            length=len(jobs_list)           
+        length=len(jobs_list)
+        return render_template('producer_profile_page_for_himself.html',current_user=current_user,user_id=user_id,producer=producer,jobs_list=jobs_list,professionals=professionals,plans=plans,length=length)
     
     #---Professional------------------------------------------------------------------------------------------------
 
@@ -277,13 +306,14 @@ with app.app_context():
         login_user(user)
         message=request.args.get('message', 'Default')
         briefs_list=Brief.query.all()
+        producers=[]
         producer_name=[]
         for brief in briefs_list:
+            producer=User.query.filter_by(id=brief.producer_id).first()
+            producers.append(producer)
             producer_name.append(User.query.filter_by(id=brief.producer_id).first().display_name)
-            brief_professional=Brief_Professional.query.filter_by(brief_id=brief.id,professional_id=user_id).first()
-            if brief_professional:
-                briefs_list.remove(brief)
-        return render_template('professional_dashboard.html',briefs_list=briefs_list,current_user=current_user,user_id=user_id,producer_name=producer_name,message=message)
+        
+        return render_template('professional_dashboard.html',briefs_list=briefs_list,current_user=current_user,user_id=user_id,producer_name=producer_name,message=message,producers=producers)
         
     
     @app.route('/professional_pp_for_himself<int:user_id>')
@@ -292,8 +322,50 @@ with app.app_context():
         user=User.query.filter_by(id=user_id).first()
         login_user(user)
         professional=User.query.filter_by(id=user_id).first()
-        return render_template('professional_profile_page_for_himself.html',current_user=current_user,user_id=user_id,professional=professional)
+        professional_jobs=Job.query.filter_by(professional_id=user_id).all()
+        length=len(professional_jobs)
+        if professional_jobs:
+            producers=[]
+            briefs=[]
+            for job in professional_jobs:
+                producer=User.query.filter_by(id=job.producer_id).first()
+                producers.append(producer)
+                brief=Brief.query.filter_by(producer_id=producer.id).first()
+                briefs.append(brief)
+                
+        else:
+            producers=[]
+            briefs=[]
+            professional_jobs=[]
+            length=len(professional_jobs)
+        return render_template('professional_profile_page_for_himself.html',current_user=current_user,user_id=user_id,professional=professional,professional_jobs=professional_jobs,length=length,producers=producers,briefs=briefs)
     
+    
+    @app.route('/producer_brief_profile_page<int:user_id>')
+    @login_required
+    def producer_brief_profile_page(user_id):
+        user=User.query.filter_by(id=user_id).first()
+        login_user(user)
+        brief_id=request.args.get('brief_id', 'Default')
+        brief=Brief.query.filter_by(id=brief_id).first()
+        producer=User.query.filter_by(id=brief.producer_id).first()
+        jobs_list=Job.query.filter_by(producer_id=producer.id).all()
+        if jobs_list:
+            professionals=[]
+            plans=[]
+            for job in jobs_list:
+                professional=User.query.filter_by(id=job.professional_id).first()
+                professionals.append(professional)
+                if job.plan==1 or job.plan=="1":
+                    plans.append("Basic")
+                elif job.plan==2 or job.plan=="2":
+                    plans.append("Standard")
+                else:
+                    plans.append("Premium")
+        else:
+            professionals=[]
+            plans=[]
+        return render_template('producer_brief_profile_page.html',current_user=current_user,user_id=user_id,brief=brief,producer=producer,professionals=professionals,plans=plans)
     
     @app.route('/apply_for_brief', methods=['GET', 'POST'])    
     @login_required
@@ -325,17 +397,22 @@ with app.app_context():
             professional_id=request.args.get('professional_id', 'Default')
             professional=User.query.filter_by(id=professional_id).first()
             professional_jobs=Job.query.filter_by(professional_id=professional_id).all()
-            producers=["None"]
-            plans=["None"]
-        
-        ''' if professional_jobs:
-            producers.pop(-1)
-            plans.pop(-1)
-            for job in professional_jobs:
-                producer=User.query.filter_by(id=job.producer_id).first()
-                producers.append(producer)
-                plans.append(job.plan)
-            result = dict(zip(producers, plans)) '''
+            length=len(professional_jobs)
+            message=""
+            if professional_jobs:
+                producers=[]
+                briefs=[]
+                for job in professional_jobs:
+                    producer=User.query.filter_by(id=job.producer_id).first()
+                    producers.append(producer)
+                    brief=Brief.query.filter_by(producer_id=producer.id).first()
+                    briefs.append(brief)
+                    
+            else:
+                producers=[]
+                briefs=[]
+                professional_jobs=[]
+                length=len(professional_jobs)
             
        
         if request.method == 'POST':
@@ -363,17 +440,42 @@ with app.app_context():
             return redirect(url_for('producer_dashboard',user_id=user_id,message=message))
         
         
-        return render_template('professional_profile_page.html',current_user=current_user,professional=professional,user_id=user_id)    
-    
-    
-    @app.route('/job/<int:job_id>')
-    def job(job_id):
-        #job = Job.query.get_or_404(job_id)
-        return render_template('job.html', job=job)
-
+        return render_template('professional_profile_page.html',current_user=current_user,professional=professional,user_id=user_id,professional_jobs=professional_jobs,length=length,producers=producers,briefs=briefs,message=message)
 
     #---------------------------------------------------------------------------------------------------
-      
+    
+    @app.route('/search_for_users', methods=['POST'])
+    @login_required
+    def search_for_users():
+        if request.method == 'POST':
+            user_id=request.args.get('user_id', 'Default')
+            login_user(User.query.filter_by(id=user_id).first())
+            search=request.form.get('search_bar')
+            print(search)
+            users = User.query.filter(func.lower(User.display_name).ilike(func.lower(f"%{search}%"))).all()
+            print(users)
+            search_ids=[]
+            user_names=[]
+            profile_images=[]
+            for user in users:
+                search_ids.append(user.id)
+                user_names.append(user.display_name)
+                profile_images.append(user.profile_picture)
+            return jsonify({'search_ids': search_ids, 'user_names': user_names, 'profile_images': profile_images})
+    
+    
+    @app.route('/send_message', methods=['POST'])
+    @login_required
+    def send_message():
+        user1_id=request.args.get('user1_id', 'Default')
+        user2_id=request.args.get('user2_id', 'Default')
+        message=request.form.get('message')
+        print(message)
+        user1_name=User.query.filter_by(id=user1_id).first().display_name
+        user1_profile_image=User.query.filter_by(id=user1_id).first().profile_picture
+        socketio.emit('message_notification', {'message': message, 'user1_id': user1_id ,'name' :user1_name ,'profile_image': user1_profile_image},room=int(user2_id))
+        return jsonify({'message': message, 'user1_id': user1_id , 'user2_id': user2_id})
+    
     @app.route('/logout')
     @login_required
     def logout():
@@ -384,3 +486,8 @@ with app.app_context():
 
     if __name__ == '__main__':
         socketio.run(app, debug=True)
+
+
+
+
+

@@ -1,3 +1,16 @@
+loading animation in automated memer error
+notification system error
+*ngrok upload
+*if user was logout then notification
+*python anywhere
+create read me and github properly (ready for submission)
+create resume
+jo profile photo change ho rhi hai baar baar usko fix
+
+
+
+
+
 (5)Chat box
 (6)prev jobs
 (7)review

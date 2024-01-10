@@ -46,7 +46,7 @@
 
    <!--Notification-->
   <div id="notification-bell" onclick="toggleNotificationDropdown()">
-    <i id="notification-icon" class="bi bi-bell" style="color:#ffc451"></i>
+    <i id="notification-icon" class="bi bi-bell"></i>
     {% if message!='Default' %}
     <img src="../static/assets/img/new_notification.svg" alt="Notification" id="notification-img" style="margin-bottom:6px;position:absolute;width:10px;"></img>
     {% endif %}
@@ -103,11 +103,63 @@
   </div>
     <!--End Notification-->
 
-    <!--My Orders-->
-    <a href="my_orders.html" class="my_orders"><i class="bi bi-cart"></i></a><!--End My Orders-->
+    <!--Chat feature -->
+    <div id="chat" onclick="toggleChatDropdown()">
+    <i class="bi bi-envelope messages"></i>
+    <img src="../static/assets/img/new_notification.svg" alt="Notification" id="notification-img" style="display:none;margin-bottom:6px;position:absolute;width:10px;"></img>  
+    </div>
+
+    <div id="chat_one_icon" style="display: none;position:absolute;">
+      <img src="../static/assets/img/new_notification.svg" alt="Notification" id="chat-img" style="margin-bottom:6px;position:absolute;width:11px;left: 1218px;top:-12px;z-index:1;"></img>
+    </div>
+
+    <div id="chat-dropdown" style="display:none;position:absolute;z-index:100000;background-color:white;top: 127%;left: 72%;">
+      <h5 id="Chat-heading">Inbox:</h5>
+      <hr>
+      <div style="display:flex; justify-content: center; align-items: center;" id="search_for_users">
+        <form class="d-none d-lg-flex search_form" id="searchforUsers">
+        <input id="search_bar" name="search_bar" type="text" class="form-control " placeholder="Search for users" style="width:100%;">
+        <button id="search_button" type="submit" class="btn btn-primary" onclick="searchForUsers()"><i class="bi bi-search"></i></button>
+        </form>
+      </div>
+      <div id="messages_div" style="display:none;position:absolute;top:125px;">
+        <img src="" id="user_image" class="rounded-circle img-fluid pp " style="max-width: 50px; margin-right: 10px; margin-bottom: 10px; margin-top: 10px; float: left; border: 2px solid #ffc451; border-radius: 50%;">
+        <p id="user_name" style="font-size:22px;position:relative;width: 349px;top: 16px;left: 3px;">User name</p>
+        <hr style="margin-top:5px;">
+        <div id="chat_messages">
+          
+        </div>
+        <div id="text_input" style="position:absolute;top: 400px;">
+          <form class="d-none d-lg-flex search_form" id="send_message">
+            <input id="message" name="message" type="text" class="form-control " placeholder="Type a message" style="width:520px;">
+            <button id="send_button" type="submit" class="btn submit_button" onclick="sendMessage()"><i class="bi bi-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+      <hr style="margin-bottom:5px;">
+      <div id="search_results" style="display:none;animation:fadeIn 0.3s;">
+        <img src="" class="rounded-circle img-fluid pp search_results_image" style="max-width: 80px; margin-right: 10px; margin-bottom: 10px; margin-top: 10px; float: left; border: 2px solid #ffc451; border-radius: 50%;">
+        <br>
+        <p id="search_results_para" style="font-size:22px;position:relative;top:10px;left:10px;">Search results</p>
+        <br>
+        <hr style="margin-top:5px;">
+      </div>
+      <div id="your_messages" class="your_messages" style="position:absolute;">
+        <p style="text-align:center;margin-top:200px;">No messages</p>
+    </div>
+    <div id="your_messages2 " class="your_messages2" style="display:none;">
+  </div>
+    </div>
+
+
+
+
+
+
+
     
     <!--profile_image-->
-      <div id="img_profile">
+      <div id="img_profile" onclick="window.location.href='/producer_profile_page_for_himself{{user_id}}'">
       <img src="{{ current_user.profile_picture }}" alt="Profile Picture" class="img-fluid rounded-circle" style="max-width: 45px;">
       </div>
     </div><!--End profile_image-->
@@ -241,6 +293,7 @@
   <script src="../static/assets/js/main.js"></script>
 
   <script>
+    let id=0;
 
     function professionalIdView(professional_id) {
       window.location.href = '/professional_pp?user_id={{user_id}}&professional_id=' + professional_id;
@@ -274,12 +327,123 @@
     });
 
     function toggleNotificationDropdown() {
-        // Toggle the visibility of the notification dropdown
         const dropdown = document.getElementById('notification-dropdown');
         dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'block' : 'none';
     }
+
+    function toggleChatDropdown() {
+      const dropdown = document.getElementById('chat-dropdown');
+      dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'block' : 'none';
+  }
+
+  function searchForUsers() {
+    const form = document.getElementById('searchforUsers');
+    const formData = new FormData(form);
+
+    // Use async/await to handle the asynchronous fetch call
+    (async () => {
+        try {
+            const response = await fetch('/search_for_users?user_id={{user_id}}', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            const search_results = document.getElementById('search_results');
+            const search_results_para = document.getElementById('search_results_para');
+            const search_results_image = document.querySelector('.search_results_image');
+            id=data['search_ids'][0];
+            const img=data['profile_images'][0];
+            search_results.style.display = 'block';
+            search_results_para.innerHTML = data['user_names'][0];
+            search_results_image.src = data['profile_images'][0];
+            document.getElementById('your_messages2').style.display = 'none';
+            divclicked(id,img);
+            //search_results.addEventListener('click', function() {
+             // window.location.href = '/producer_chat_page?user_id={{user_id}}&professional_id=' + data['user_ids'][0];
+            //});
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    })();
+
+    // Prevent the default form submission behavior
+    event.preventDefault();
+}
+
+  function divclicked(id,img) {
+    const search_results=document.getElementById('search_results');
+        search_results.addEventListener('click', async function() {
+          try {
+            search_results.style.display = 'none';
+            document.getElementById('messages_div').style.display = 'block';
+            document.getElementById('user_image').src= img;
+            document.getElementById('user_name').innerHTML= document.getElementById('search_results_para').innerHTML;
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        });
+        
+        // Prevent the default form submission behavior
+        event.preventDefault();
+    }
+
+function sendMessage() {
+  const form = document.getElementById('send_message');
+  const formData = new FormData(form);
+  
+
+  // Use async/await to handle the asynchronous fetch call
+  (async () => {
+      try {
+          const response = await fetch('/send_message?user1_id={{user_id}}&user2_id=' + id, {
+              method: 'POST',
+              body: formData,
+          });
+
+          if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          console.log(data);
+
+          const text_input = document.getElementById('text_input');
+          const message = document.getElementById('message');
+          const chat_messages = document.getElementById('chat_messages');
+          message.value = '';
+          chat_messages.innerHTML += '<p style="margin-bottom:8px;">' + data['message'] + '</p>';
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  })();
+
+  // Prevent the default form submission behavior
+  event.preventDefault();
+}
+  socket.on("message_notification",function(data){
+    const your_messages = document.querySelector('.your_messages');
+    const your_messages2 = document.querySelector('.your_messages2');
+    const text_input = document.getElementById('text_input');    
+    text_input.style.top = '125px';
+    message.value = '';
+    console.log(data);
+    document.getElementById('chat_one_icon').style.display = 'block';
+    your_messages.style.display = 'none';
+    your_messages2.style.display = 'block';
+    your_messages2.innerHTML += `<img src="${data['profile_image']}" class="rounded-circle img-fluid pp search_results_image" style="max-width: 60px; margin-right: 10px; margin-bottom: 10px; margin-top: 10px; float: left; border: 2px solid #ffc451; border-radius: 50%;"><br><p id="search_results_para" style="font-size:22px;position:relative;top:-1px;left:10px;">${data['name']}</p>    <img src="../static/assets/img/new_notification.svg" alt="Notification" id="notification-img" style="margin-bottom:6px;position:absolute;width:11px;left: 365px;top: 161px;z-index: 200000000;scale: 1.4;"></img><hr style="margin-top:5px;">`;
+  });
+
 </script>
 
 </body>
 
 </html>
+
+
+
