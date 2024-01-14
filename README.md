@@ -4,7 +4,7 @@ RetroCraft Hub is a platform that connects users with skilled professionals in t
 
 
 ## Demo Video(Youtube)
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/yjbsk9O5998/0.jpg)](https://www.youtube.com/watch?v=yjbsk9O5998)
+[![Thumbnail](https://github.com/rishabhJain1234/RetroCraft_Hub/assets/40473326/772b67ef-1ea5-4133-9492-d584f875f602)](https://www.youtube.com/watch?v=yjbsk9O5998)
 
 
 ## Installation
