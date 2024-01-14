@@ -2121,3 +2121,19 @@ transition:all 0.1s ease-in-out;
   transition:all 0.1s;
   cursor: pointer;
 }
+
+.your_messages2{
+  transition:all 0.3s ease-in-out;
+}
+
+.your_messages2:hover{
+  transition:all 0.3s;
+  cursor: pointer;
+}
+
+.group_input{
+  position: fixed;
+  top: 80vh;
+  margin-top: 10vh;
+
+}

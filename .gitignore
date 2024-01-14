@@ -1,8 +1,9 @@
 my-app/
 
+_pycache_/
+
 venv/
 
 *.env
 
-*To_do.txt
 

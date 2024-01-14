@@ -7,6 +7,9 @@ from authlib.integrations.flask_client import OAuth
 from flask_socketio import SocketIO, emit,Namespace,join_room,leave_room
 import requests
 from sqlalchemy import func
+from gmail import GMail,Message
+from datetime import datetime
+import time
 
 
 app = Flask(__name__)
@@ -89,9 +92,19 @@ with app.app_context():
         brief = db.relationship('Brief', backref=db.backref('brief_professionals', lazy=True))
         professional = db.relationship('User', backref=db.backref('brief_professionals', lazy=True))
         accepted=db.Column(db.Integer, default=False) #0 for pending 1 for not accepted, 2 for accepted
+        
+    class messages(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+        receiver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+        message = db.Column(db.Text, nullable=False)
+        timestamp=db.Column(db.DateTime, nullable=False)
+        sender = db.relationship('User', foreign_keys=[sender_id])
+        receiver = db.relationship('User', foreign_keys=[receiver_id])
     
     db.create_all()
     
+    gmail = GMail('<retrocrafthub@gmail.com>',os.environ.get("GMAIL_PASSWORD"))
 
     # Flask-Login configuration
     @login_manager.user_loader
@@ -212,13 +225,36 @@ with app.app_context():
         pass    
     
     
-    @app.route('/producer_dashboard<int:user_id>')
+    @app.route('/producer_dashboard<int:user_id>',methods=['GET','POST'])
     @login_required
     def producer_dashboard(user_id):
         message=request.args.get('message', 'Default')
         user=User.query.filter_by(id=user_id).first()
         login_user(user)
+        producer_name=User.query.filter_by(id=user_id).first().display_name
+        producer_profile_image=User.query.filter_by(id=user_id).first().profile_picture
         professionals_list=User.query.filter_by(v=0).all()
+        if request.method == 'POST':
+            messages_received=messages.query.filter_by(receiver_id=user_id).all()
+            messages_sent=messages.query.filter_by(sender_id=user_id).all()
+            all_messages=messages_received+messages_sent
+            if all_messages:
+                all_messages.sort(key=lambda x: x.timestamp) 
+                for msg in all_messages:
+                    if msg.sender_id == user_id:
+                        print("sent")
+                        receiver=User.query.filter_by(id=msg.receiver_id).first()
+                        receiver_name=receiver.display_name
+                        receiver_profile_image=receiver.profile_picture
+                        socketio.emit('message_notification_sent', {'message': msg.message, 'user1_id': user_id ,'user2_id':msg.receiver_id ,'name' :receiver_name ,'profile_image': receiver_profile_image},room=int(user_id))
+                        time.sleep(0.1)
+                    else:
+                        print("received")
+                        sender=User.query.filter_by(id=msg.sender_id).first()
+                        sender_name=sender.display_name
+                        sender_profile_image=sender.profile_picture
+                        socketio.emit('message_notification', {'message': msg.message, 'user1_id': user_id ,'user2_id':msg.sender_id ,'name' :sender_name ,'profile_image': sender_profile_image},room=int(user_id))
+                        time.sleep(0.1)
         return render_template('producer_dashboard.html',professionals_list=professionals_list,current_user=current_user, user_id=user_id,message=message)
     
     
@@ -312,6 +348,8 @@ with app.app_context():
             producer=User.query.filter_by(id=brief.producer_id).first()
             producers.append(producer)
             producer_name.append(User.query.filter_by(id=brief.producer_id).first().display_name)
+            
+        #is_there_messages=messages.query.filter_by(receiver_id=user_id or sender_id=user_id).all()
         
         return render_template('professional_dashboard.html',briefs_list=briefs_list,current_user=current_user,user_id=user_id,producer_name=producer_name,message=message,producers=producers)
         
@@ -384,6 +422,11 @@ with app.app_context():
         message=f'Successfully applied for the brief, {producer_name} will contact you soon for further details.'
         producer_id=Brief.query.filter_by(id=brief_id).first().producer_id
         
+        text=f'Dear {producer_name},\n\nWe are excited to share with you that a professional has applied for your brief!\n\nFeel free to reach out if you require any support or have questions regarding the upcoming collaboration. We look forward to witnessing the positive impact of your efforts.\n\nBest regards,\nTeam Retrocraft Hub'
+        producer_email=User.query.filter_by(id=producer_id).first().username
+        msg = Message('Brief Notification',to=f'<{producer_email}>',text=text)
+        gmail.send(msg)
+            
         socketio.emit('application_notification', {'brief_id': brief_id, 'professional_id': user_id},room=producer_id)
         
         return redirect(url_for('professional_dashboard',user_id=user_id,message=message))
@@ -425,15 +468,20 @@ with app.app_context():
             db.session.add(job)
             db.session.commit()
             
-            producer_name=User.query.filter_by(id=user_id).first().display_name
-            message=f'Successfully booked with artist: {professional_name}'
-            
             if plan==1 or plan=="1":
                 plan="Basic"
             elif plan==2 or plan=="2":
                 plan="Standard"
             else:
                 plan="Premium"
+            
+            producer_name=User.query.filter_by(id=user_id).first().display_name
+            message=f'Successfully booked with artist: {professional_name}'
+            text = f'Dear {professional_name},\n\nWe are excited to share with you that {producer_name} has made the decision to purchase your {plan} plan! This serves as a testament to the value and quality of your services.\n\nYour commitment to excellence and dedication to your craft have not gone unnoticed. We believe that this collaboration will yield mutually beneficial results.\n\nFeel free to reach out if you require any support or have questions regarding the upcoming collaboration. We look forward to witnessing the positive impact of your efforts.\n\nCongratulations once again, and may your professional journey continue to flourish!\n\nBest regards,\nTeam Retrocraft Hub'
+            
+            professional_email=User.query.filter_by(id=professional_id).first().username
+            msg = Message('Booking Notification',to=f'<{professional_email}>',text=text)
+            gmail.send(msg)
                 
             socketio.emit('booking_notification', {'plan': plan, 'producer_id': user_id ,'producer_name': producer_name},room=professional_id)
 
@@ -471,9 +519,13 @@ with app.app_context():
         user2_id=request.args.get('user2_id', 'Default')
         message=request.form.get('message')
         print(message)
+
+        new_message=messages(sender_id=user1_id,receiver_id=user2_id,message=message,timestamp = datetime.utcnow())
+        db.session.add(new_message)
+        db.session.commit()
         user1_name=User.query.filter_by(id=user1_id).first().display_name
         user1_profile_image=User.query.filter_by(id=user1_id).first().profile_picture
-        socketio.emit('message_notification', {'message': message, 'user1_id': user1_id ,'name' :user1_name ,'profile_image': user1_profile_image},room=int(user2_id))
+        socketio.emit('message_notification', {'message': message, 'user1_id': user1_id ,'user2_id':user2_id ,'name' :user1_name ,'profile_image': user1_profile_image},room=int(user2_id))
         return jsonify({'message': message, 'user1_id': user1_id , 'user2_id': user2_id})
     
     @app.route('/logout')
